@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.15.5
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/site.conf:/etc/nginx/sites-available/site.conf
+    links:
+      - php-fpm
+    restart: always
+  php-fpm:
+    image: nmcteam/php56
+    volumes:
+      - ./html:/home/focusm/repo/fmichinahomepage/html
+      - ./php5.6/www.conf:/etc/php5/fpm/pool.d/www.conf
+    restart: always
